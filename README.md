@@ -10,3 +10,4 @@ Demo on setting up Traefik in K8s. This demo also spins up a new AKS cluster.
 4. Kick off the GitHub action
 
 [![Create Traefik demo AKS cluster](https://github.com/fredrkl/traefik-k8s-setup/actions/workflows/workflow.yml/badge.svg)](https://github.com/fredrkl/traefik-k8s-setup/actions/workflows/workflow.yml)
+[![Deploy to AKS](https://github.com/fredrkl/traefik-k8s-setup/actions/workflows/deploy-to-aks.yml/badge.svg)](https://github.com/fredrkl/traefik-k8s-setup/actions/workflows/deploy-to-aks.yml)
