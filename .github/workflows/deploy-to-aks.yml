@@ -23,7 +23,7 @@ jobs:
       uses: azure/aks-set-context@v3
       with:
         resource-group: TraefikDemo
-        cluster-name: $CLUSTER_NAME
+        cluster-name: TraefikDemo
 
     - name: Kubectl tool installer
       uses: Azure/setup-kubectl@v3
