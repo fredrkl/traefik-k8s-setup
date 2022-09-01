@@ -1,7 +1,7 @@
 name: Deploy to AKS
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
   workflow_run:
     workflows: [Create Traefik demo AKS cluster]
     types:
