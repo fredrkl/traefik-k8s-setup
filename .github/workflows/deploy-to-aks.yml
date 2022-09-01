@@ -1,6 +1,11 @@
 name: Deploy to AKS
 
-on: [push]
+on:
+  workflow_dispatch
+  workflow_run:
+    workflows: [Create Traefik demo AKS cluster]
+    types:
+      - completed
 
 env:
   CLUSTER_NAME: TraefikDemo
@@ -8,7 +13,6 @@ env:
 concurrency: pushing
 
 jobs:
-
   Apply-yaml:
     runs-on: ubuntu-latest
     steps:
@@ -17,7 +21,6 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-
 
     - name: Set Context
       uses: azure/aks-set-context@v3
@@ -28,14 +31,8 @@ jobs:
     - name: Kubectl tool installer
       uses: Azure/setup-kubectl@v3
 
-    #- name: Azure CLI script
-    #  uses: azure/CLI@v1
-    #  with:
-    #    azcliversion: 2.30.0
-    #    inlineScript: |
-    #      az aks get-credentials -g TraefikDemo -n $CLUSTER_NAME
-
     - name: Run script
       run: |
         kubectl get nodes
         kubectl get ns
+        kubectl apply -k yaml/

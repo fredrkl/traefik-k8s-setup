@@ -24,4 +24,3 @@ jobs:
         azcliversion: 2.30.0
         inlineScript: |
           az aks create -g TraefikDemo -n $CLUSTER_NAME --generate-ssh-keys
-          az aks get-credentials -g TraefikDemo -n $CLUSTER_NAME
