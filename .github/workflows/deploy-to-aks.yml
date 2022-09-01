@@ -21,5 +21,14 @@ jobs:
     - name: Kubectl tool installer
       uses: Azure/setup-kubectl@v3
 
+    - name: Azure CLI script
+      uses: azure/CLI@v1
+      with:
+        azcliversion: 2.30.0
+        inlineScript: |
+          az aks get-credentials -g TraefikDemo -n $CLUSTER_NAME
+
     - name: Run script
-      run: echo "Hello World"
+      run: |
+        kubectl get nodes
+        kubectl get ns
