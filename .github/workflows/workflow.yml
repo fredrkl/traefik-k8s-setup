@@ -2,6 +2,9 @@ name: Create Traefik demo AKS cluster
 
 on: [push, workflow_dispatch]
 
+env:
+  CLUSTER_NAME: TraefikDemo
+
 jobs:
 
   Setup-a-new-AKS:
@@ -20,3 +23,4 @@ jobs:
         inlineScript: |
           az account show
           az storage -h
+          az aks create -g TraefikDemo -n $CLUSTER_NAME
