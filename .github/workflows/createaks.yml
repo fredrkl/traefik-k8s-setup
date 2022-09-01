@@ -1,6 +1,6 @@
 name: Create Traefik demo AKS cluster
 
-on: [push, workflow_dispatch]
+on: [workflow_dispatch]
 
 env:
   CLUSTER_NAME: TraefikDemo
@@ -24,3 +24,4 @@ jobs:
         azcliversion: 2.30.0
         inlineScript: |
           az aks create -g TraefikDemo -n $CLUSTER_NAME --generate-ssh-keys
+          az aks get-credentials -g TraefikDemo -n $CLUSTER_NAME
