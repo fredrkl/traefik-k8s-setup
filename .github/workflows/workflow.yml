@@ -4,7 +4,7 @@ on: [push, workflow_dispatch]
 
 jobs:
 
-  build-and-deploy:
+  Setup a new AKS:
     runs-on: ubuntu-latest
     steps:
 
