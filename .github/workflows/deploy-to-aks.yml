@@ -32,9 +32,11 @@ jobs:
     - name: Kubectl tool installer
       uses: Azure/setup-kubectl@v3
 
+    - name: Checkout
+      uses: actions/checkout@v3
+
     - name: Run script
       run: |
         kubectl get nodes
         kubectl get ns
-        pwd
         ls
