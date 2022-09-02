@@ -1,4 +1,4 @@
-name: Create Traefik demo AKS cluster
+name: Create AKS
 
 on: [workflow_dispatch]
 
