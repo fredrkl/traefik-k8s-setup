@@ -37,3 +37,4 @@ jobs:
         kubectl get nodes
         kubectl get ns
         pwd
+        ls
