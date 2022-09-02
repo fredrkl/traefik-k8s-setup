@@ -35,4 +35,4 @@ jobs:
       run: |
         kubectl get nodes
         kubectl get ns
-        kubectl apply -k yaml/
+        ls
