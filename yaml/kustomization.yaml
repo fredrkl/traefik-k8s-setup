@@ -1,5 +1,6 @@
 resources:
 - ns.yaml
 - traefik-CRDs.yaml
+- traefik.yaml
 
-namespace: traefik
+namespace: ingresscontrollers
