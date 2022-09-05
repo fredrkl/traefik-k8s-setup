@@ -1,5 +1,5 @@
 resources:
 - ns.yaml
-- hello.yaml
+- traefik-CRDs.yaml
 
 namespace: traefik

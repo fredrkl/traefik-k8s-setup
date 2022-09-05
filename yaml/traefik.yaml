@@ -1,0 +1,192 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    app: traefik-proxy
+    tier: proxy
+  name: traefik-proxy
+  namespace: ingresscontrollers
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: traefik-proxy
+      tier: proxy
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: traefik-proxy
+        tier: proxy
+    spec:
+      containers:
+      - env:
+        - name: TRAEFIK_ENTRYPOINTS_TRAEFIK
+          value: "true"
+        - name: TRAEFIK_ENTRYPOINTS_TRAEFIK_ADDRESS
+          value: :8080
+        - name: TRAEFIK_ENTRYPOINTS_PING
+          value: "true"
+        - name: TRAEFIK_ENTRYPOINTS_PING_ADDRESS
+          value: :8082
+        - name: TRAEFIK_ENTRYPOINTS_PROMETHEUS
+          value: "true"
+        - name: TRAEFIK_ENTRYPOINTS_PROMETHEUS_ADDRESS
+          value: :8083
+        - name: TRAEFIK_ENTRYPOINTS_WEB
+          value: "true"
+        - name: TRAEFIK_ENTRYPOINTS_WEB_ADDRESS
+          value: :80
+        - name: TRAEFIK_ENTRYPOINTS_WEB_HTTP_REDIRECTIONS_ENTRYPOINT_TO
+          value: websecure
+        - name: TRAEFIK_ENTRYPOINTS_WEB_HTTP_REDIRECTIONS_ENTRYPOINT_SCHEME
+          value: https
+        - name: TRAEFIK_ENTRYPOINTS_WEBSECURE
+          value: "true"
+        - name: TRAEFIK_ENTRYPOINTS_WEBSECURE_ADDRESS
+          value: :443
+        - name: TRAEFIK_ENTRYPOINTS_WEBSECURE_HTTP_TLS
+          value: "true"
+        - name: TRAEFIK_ENTRYPOINTS_WEBSECURE_HTTP_TLS_CERTRESOLVER
+          value: default
+        - name: TRAEFIK_METRICS_PROMETHEUS
+          value: "true"
+        - name: TRAEFIK_METRICS_PROMETHEUS_ENTRYPOINT
+          value: prometheus
+        - name: TRAEFIK_PING
+          value: "true"
+        - name: TRAEFIK_PING_ENTRYPOINT
+          value: ping
+        - name: TRAEFIK_LOG
+          value: "true"
+        - name: TRAEFIK_LOG_LEVEL
+          value: DEBUG
+        - name: TRAEFIK_API
+          value: "true"
+        - name: TRAEFIK_API_INSECURE
+          value: "true"
+        - name: TRAEFIK_API_DASHBOARD
+          value: "true"
+        - name: TRAEFIK_API_DEBUG
+          value: "true"
+        - name: TRAEFIK_PROVIDERS_KUBERNETESINGRESS
+          value: "true"
+        image: traefik:2.3
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /ping
+            port: 8082
+            scheme: HTTP
+          initialDelaySeconds: 20
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 3
+        name: traefik-proxy
+        ports:
+        - containerPort: 80
+          name: traefik-http
+          protocol: TCP
+        - containerPort: 8080
+          name: traefik-ui
+          protocol: TCP
+        - containerPort: 443
+          name: traefik-https
+          protocol: TCP
+        - containerPort: 8082
+          name: traefik-ping
+          protocol: TCP
+        - containerPort: 8083
+          name: traefik-metrics
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 100m
+            memory: 50M
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: traefik-ingress-controller
+      serviceAccountName: traefik-ingress-controller
+      terminationGracePeriodSeconds: 60
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: traefik-ingress-controller
+  namespace: ingresscontrollers 
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: traefik-ingress-controller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: traefik-ingress-controller
+subjects:
+- kind: ServiceAccount
+  name: traefik-ingress-controller
+  namespace: ingresscontrollers
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: traefik-ingress-controller
+rules:
+- apiGroups:
+  - networking.k8s.io
+  resources:
+  - ingressclasses
+  verbs:
+  - list
+- apiGroups:
+  - ""
+  resources:
+  - services
+  - endpoints
+  - secrets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - extensions
+  resources:
+  - ingresses
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - extensions
+  resources:
+  - ingresses/status
+  verbs:
+  - update
+- apiGroups:
+  - traefik.containo.us
+  resources:
+  - middlewares
+  - ingressroutes
+  - traefikservices
+  - ingressroutetcps
+  - ingressrouteudps
+  - tlsoptions
+  - tlsstores
+  verbs:
+  - get
+  - list
+  - watch
+---
