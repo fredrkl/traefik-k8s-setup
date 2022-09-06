@@ -39,4 +39,5 @@ jobs:
       run: |
         kubectl get nodes
         kubectl get ns
-        kubectl apply -k ./yaml
+        kubectl apply -k ./yaml/cert-manager
+        kubectl apply -k ./yaml/traefik
