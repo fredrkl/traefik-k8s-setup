@@ -22,7 +22,7 @@ kind: Ingress
 metadata:
   name: middleware-test
   annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-ingress-demo-path-prefix@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-ingress-demo-stripprefix@kubernetescrd
 spec:
   rules:
   - host: testing.test.io
