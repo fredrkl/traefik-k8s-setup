@@ -1,4 +1,4 @@
 resources:
-- ns.yaml
+- cert-manager.yaml
 
 namespace: cert-manager
