@@ -41,3 +41,4 @@ jobs:
         kubectl get ns
         kubectl apply -k ./yaml/cert-manager
         kubectl apply -k ./yaml/traefik
+        kubectl apply -k ./yaml/traefik-ingress-demo

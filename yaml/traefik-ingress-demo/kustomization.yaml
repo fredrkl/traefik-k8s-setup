@@ -1,0 +1,4 @@
+resources:
+- ns.yaml
+
+namespace: ingress-demo
