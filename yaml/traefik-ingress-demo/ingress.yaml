@@ -1,7 +1,18 @@
+kind: Middleware
+apiVersion: traefik.containo.us/v1alpha1
+metadata:
+  name: path-prefix
+spec:
+  stripPrefix:
+    prefixes:
+      - /play
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: middleware-test
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-ingress-demo-path-prefix@kubernatescrd
 spec:
   rules:
   - host: testing.test.io
