@@ -2,4 +2,4 @@ resources:
 - ns.yaml
 - demo-pod.yaml
 
-namespace: ingress-demo
+namespace: traefik-ingress-demo
