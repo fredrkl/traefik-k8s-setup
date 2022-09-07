@@ -1,4 +1,5 @@
 resources:
 - ns.yaml
+- demo-pod.yaml
 
 namespace: ingress-demo
