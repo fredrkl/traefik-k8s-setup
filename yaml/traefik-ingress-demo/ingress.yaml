@@ -8,6 +8,15 @@ spec:
     prefixes:
       - /play
 ---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: stripprefix
+spec:
+  stripPrefix:
+    prefixes:
+      - /stripit
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
