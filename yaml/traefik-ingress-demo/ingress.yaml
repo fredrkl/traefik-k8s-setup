@@ -2,6 +2,7 @@ kind: Middleware
 apiVersion: traefik.containo.us/v1alpha1
 metadata:
   name: path-prefix
+  namespace: traefik-ingress-demo
 spec:
   stripPrefix:
     prefixes:
