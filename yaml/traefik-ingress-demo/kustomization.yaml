@@ -4,4 +4,4 @@ resources:
 - service.yaml
 - ingress.yaml
 
-namespace: traefik-ingress-demo
+namespace: traefikingressdemo
