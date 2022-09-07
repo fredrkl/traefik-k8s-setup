@@ -12,7 +12,9 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: middleware-test
+  namespace: traefikingressdemo
   annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure, web
     traefik.ingress.kubernetes.io/router.middlewares: traefikingressdemo-stripprefix@kubernetescrd
 spec:
   rules:
