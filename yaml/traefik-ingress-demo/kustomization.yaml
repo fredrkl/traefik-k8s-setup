@@ -1,5 +1,5 @@
 resources:
 - ns.yaml
-- demo-pod.yaml
+- demo-deployment.yaml
 
 namespace: traefik-ingress-demo
