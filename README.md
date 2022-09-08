@@ -1,6 +1,6 @@
-# Traefik v2 on AKS sample
+# Traefik v2.8.4 on Kubernetes (K8s) sample
 
-Demo on setting up Traefik in K8s. This demo also spins up a new AKS cluster.
+Demo on setting up Traefik in K8s. This demo also spins up a new MS AKS cluster.
 
 ## Setup
 
@@ -10,6 +10,10 @@ Demo on setting up Traefik in K8s. This demo also spins up a new AKS cluster.
 4. Kick off the _Deploy to AKS_ GitHub action to create AKS
 
 ![Traefik](/images/traefik-logo.png)
+
+## Tips
+
+- If you want to use [middlewares](https://doc.traefik.io/traefik/middlewares/overview/) in K8s, you need to enable the KubernetesCRD provider regardless, even if you use the KubernetesIngress provider for Traefik configuration, e.g,. <https://github.com/fredrkl/traefik-k8s-setup/commit/fcdba1a878c815249e07ba711a0e9429572882ff>
 
 ## Workflows
 
