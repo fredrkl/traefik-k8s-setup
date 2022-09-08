@@ -78,6 +78,8 @@ spec:
           value: "true"
         - name: TRAEFIK_PROVIDERS_KUBERNETESINGRESS
           value: "true"
+        - name: TRAEFIK_PROVIDERS_KUBERNETESCRD
+          value: "true"
         image: traefik:2.8.4
         imagePullPolicy: IfNotPresent
         livenessProbe:
