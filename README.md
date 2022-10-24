@@ -15,6 +15,8 @@ Demo on setting up Traefik in K8s. This demo also spins up a new MS AKS cluster.
 
 - If you want to use [middlewares](https://doc.traefik.io/traefik/middlewares/overview/) in K8s, you need to enable the KubernetesCRD provider regardless, even if you use the KubernetesIngress provider for Traefik configuration, e.g., <https://github.com/fredrkl/traefik-k8s-setup/commit/fcdba1a878c815249e07ba711a0e9429572882ff>
 - Also, make sure that the middleware name does __not__ include -. Traefik uses - in its naming convention to find the middlewares namespace.
+- When using Cert-Manager without Helm, do not add kustomize namespace as the kube-system ns is hardcoded for the leader election role
+
 
 ## Workflows
 
