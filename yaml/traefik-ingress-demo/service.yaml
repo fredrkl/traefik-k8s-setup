@@ -4,7 +4,7 @@ metadata:
   labels:
     app: nginx
   name: nginx
-  namespace: traefik-ingress-demo
+  namespace: traefikingressdemo
 spec:
   ports:
   - port: 8080
